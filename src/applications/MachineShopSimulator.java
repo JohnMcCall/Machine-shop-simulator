@@ -27,7 +27,7 @@ public class MachineShopSimulator {
         }
     }
 
-    private static class Job {
+    static class Job {
         // data members
         private LinkedQueue taskQ; // this job's tasks
         private int length; // sum of scheduled task times
@@ -53,20 +53,6 @@ public class MachineShopSimulator {
             int theTime = ((Task) taskQ.remove()).time;
             length += theTime;
             return theTime;
-        }
-    }
-
-    private static class Machine {
-        // data members
-        LinkedQueue jobQ; // queue of waiting jobs for this machine
-        int changeTime; // machine change-over time
-        int totalWait; // total delay at this machine
-        int numTasks; // number of tasks processed on this machine
-        Job activeJob; // job currently active on this machine
-
-        // constructor
-        private Machine() {
-            jobQ = new LinkedQueue();
         }
     }
 
