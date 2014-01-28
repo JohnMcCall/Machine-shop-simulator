@@ -7,7 +7,7 @@ class Task {
     int time;
 
     // constructor
-    Task(int theMachine, int theTime) {
+    public Task(int theMachine, int theTime) {
         machine = theMachine;
         time = theTime;
     }
