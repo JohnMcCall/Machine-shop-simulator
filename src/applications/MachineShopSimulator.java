@@ -44,20 +44,14 @@ public class MachineShopSimulator {
 
         // create event and machine queues
         eList = new EventList(numMachines, largeTime);
-        machine = new Machine[numMachines + 1];
-        for (int i = 1; i <= numMachines; i++)
-            machine[i] = new Machine();
+        createMachineQueue(keyboard);
 
-        // input the change-over times
-        System.out.println("Enter change-over times for machines");
-        for (int j = 1; j <= numMachines; j++) {
-            int ct = keyboard.readInteger();
-            if (ct < 0)
-                throw new MyInputException(CHANGE_OVER_TIME_MUST_BE_AT_LEAST_0);
-            machine[j].changeTime = ct;
-        }
+        createJobs(keyboard);
+        
+    }
 
-        // input the jobs
+	private static void createJobs(MyInputStream keyboard) {
+		// input the jobs
         Job theJob;
         for (int i = 1; i <= numJobs; i++) {
             System.out.println("Enter number of tasks for job " + i);
@@ -82,7 +76,22 @@ public class MachineShopSimulator {
             } // task queue
             machine[firstMachine].jobQ.put(theJob);
         }
-    }
+	}
+
+	private static void createMachineQueue(MyInputStream keyboard) {
+		machine = new Machine[numMachines + 1];
+        for (int i = 1; i <= numMachines; i++)
+            machine[i] = new Machine();
+
+        // input the change-over times
+        System.out.println("Enter change-over times for machines");
+        for (int j = 1; j <= numMachines; j++) {
+            int ct = keyboard.readInteger();
+            if (ct < 0)
+                throw new MyInputException(CHANGE_OVER_TIME_MUST_BE_AT_LEAST_0);
+            machine[j].changeTime = ct;
+        }
+	}
 
     /** load first jobs onto each machine */
     static void startShop() {
