@@ -42,13 +42,13 @@ class Job {
 	        return false;
 	    } else {// theJob has a next task
 	            // get machine for next task
-	        int p = ((Task) taskQ.getFrontElement()).getMachine();
+	        int nextMachine = ((Task) taskQ.getFrontElement()).getMachine();
 	        // put on machine p's wait queue
-	        MachineShopSimulator.machine[p].addJob(this);
+	        MachineShopSimulator.machine[nextMachine].addJob(this);
 	        arrivalTime = MachineShopSimulator.timeNow;
 	        // if p idle, schedule immediately
-	        if (MachineShopSimulator.eList.nextEventTime(p) == MachineShopSimulator.largeTime) {// machine is idle
-	            MachineShopSimulator.machine[p].changeState();
+	        if (MachineShopSimulator.geteList().nextEventTime(nextMachine) == MachineShopSimulator.idleTime) {// machine is idle
+	            MachineShopSimulator.machine[nextMachine].changeState();
 	        }
 	        return true;
 	    }

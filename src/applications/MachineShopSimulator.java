@@ -17,9 +17,9 @@ public class MachineShopSimulator {
     static int timeNow; // current time
     private static int numMachines; // number of machines
     private static int numJobs; // number of jobs
-    static EventList eList; // pointer to event list
+    private static EventList eList; // pointer to event list
     static Machine[] machine; // array of machines
-    static int largeTime; // all machines finish before this
+    static int idleTime; // all machines finish before this
 
     /** input machine shop data */
     static void inputData() {
@@ -33,7 +33,7 @@ public class MachineShopSimulator {
             throw new MyInputException(NUMBER_OF_MACHINES_AND_JOBS_MUST_BE_AT_LEAST_1);
 
         // create event and machine queues
-        eList = new EventList(numMachines, largeTime);
+        eList = new EventList(numMachines, idleTime);
         createMachineQueue(keyboard);
 
         createJobs(keyboard);
@@ -117,7 +117,7 @@ public class MachineShopSimulator {
 
     /** entry point for machine shop simulator */
     public static void main(String[] args) {
-        largeTime = Integer.MAX_VALUE;
+        idleTime = Integer.MAX_VALUE;
         /*
          * It's vital that we (re)set this to 0 because if the simulator is called
          * multiple times (as happens in the acceptance tests), because timeNow
@@ -130,4 +130,8 @@ public class MachineShopSimulator {
         simulate(); // run all jobs through shop
         outputStatistics(); // output machine wait times
     }
+
+	static EventList geteList() {
+		return eList;
+	}
 }

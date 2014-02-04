@@ -31,7 +31,7 @@ public class Machine {
             lastJob = null;
             // wait over, ready for new job
             if (this.jobQ.isEmpty()) // no waiting job
-            	MachineShopSimulator.eList.setFinishTime(id, MachineShopSimulator.largeTime);
+            	setFinishTime(MachineShopSimulator.idleTime);
             else {// take job off the queue and work on it
                 this.activeJob = (Job) this.jobQ
                         .remove();
@@ -39,18 +39,22 @@ public class Machine {
                         - this.activeJob.getArrivalTime();
                 this.numTasks++;
                 int t = this.activeJob.removeNextTask();
-                MachineShopSimulator.eList.setFinishTime(id, MachineShopSimulator.timeNow + t);
+                setFinishTime(MachineShopSimulator.timeNow + t);
             }
         } else {// task has just finished on machine[theMachine]
                 // schedule change-over time
             lastJob = this.activeJob;
             this.activeJob = null;
-            MachineShopSimulator.eList.setFinishTime(id, MachineShopSimulator.timeNow
-                    + this.changeTime);
+            setFinishTime(MachineShopSimulator.timeNow
+    		        + this.changeTime);
         }
 
         return lastJob;
     }
+
+	private void setFinishTime(int time) {
+		MachineShopSimulator.geteList().setFinishTime(id, time);
+	}
 
 	int getNumTasks() {
 		return numTasks;
