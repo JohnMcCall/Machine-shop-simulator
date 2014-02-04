@@ -44,7 +44,7 @@ class Job {
 	            // get machine for next task
 	        int p = ((Task) taskQ.getFrontElement()).getMachine();
 	        // put on machine p's wait queue
-	        MachineShopSimulator.machine[p].jobQ.put(this);
+	        MachineShopSimulator.machine[p].addJob(this);
 	        arrivalTime = MachineShopSimulator.timeNow;
 	        // if p idle, schedule immediately
 	        if (MachineShopSimulator.eList.nextEventTime(p) == MachineShopSimulator.largeTime) {// machine is idle

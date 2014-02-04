@@ -4,11 +4,11 @@ import dataStructures.LinkedQueue;
 
 public class Machine {
     // data members
-    LinkedQueue jobQ; // queue of waiting jobs for this machine
-    int changeTime; // machine change-over time
-    int totalWait; // total delay at this machine
-    int numTasks; // number of tasks processed on this machine
-    Job activeJob; // job currently active on this machine
+    private LinkedQueue jobQ; // queue of waiting jobs for this machine
+    private int changeTime; // machine change-over time
+    private int totalWait; // total delay at this machine
+    private int numTasks; // number of tasks processed on this machine
+    private Job activeJob; // job currently active on this machine
 
     // constructor
     public Machine() {
@@ -48,4 +48,20 @@ public class Machine {
 
         return lastJob;
     }
+
+	int getNumTasks() {
+		return numTasks;
+	}
+
+	int getTotalWait() {
+		return totalWait;
+	}
+
+	void setChangeTime(int changeTime) {
+		this.changeTime = changeTime;
+	}
+	
+	void addJob(Job job) {
+		jobQ.put(job);
+	}
 }

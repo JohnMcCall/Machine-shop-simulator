@@ -74,7 +74,7 @@ public class MachineShopSimulator {
                     firstMachine = theMachine; // job's first machine
                 theJob.addTask(theMachine, theTaskTime); // add to
             } // task queue
-            machine[firstMachine].jobQ.put(theJob);
+            machine[firstMachine].addJob(theJob);
         }
 	}
 
@@ -89,7 +89,7 @@ public class MachineShopSimulator {
             int ct = keyboard.readInteger();
             if (ct < 0)
                 throw new MyInputException(CHANGE_OVER_TIME_MUST_BE_AT_LEAST_0);
-            machine[j].changeTime = ct;
+            machine[j].setChangeTime(ct);
         }
 	}
 
@@ -118,9 +118,9 @@ public class MachineShopSimulator {
         System.out.println("Finish time = " + timeNow);
         for (int p = 0; p < numMachines; p++) {
             System.out.println("Machine " + (p + 1) + " completed "
-                    + machine[p].numTasks + " tasks");
+                    + machine[p].getNumTasks() + " tasks");
             System.out.println("The total wait time was "
-                    + machine[p].totalWait);
+                    + machine[p].getTotalWait());
             System.out.println();
         }
     }
