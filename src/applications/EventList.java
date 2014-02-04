@@ -2,7 +2,7 @@ package applications;
 
 class EventList {
     // data members
-    int[] finishTime; // finish time array
+    private int[] finishTime; // finish time array
 
     // constructor
     EventList(int theNumMachines, int theLargeTime) {// initialize
