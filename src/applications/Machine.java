@@ -33,7 +33,7 @@ public class Machine {
                 this.activeJob = (Job) this.jobQ
                         .remove();
                 this.totalWait += MachineShopSimulator.timeNow
-                        - this.activeJob.arrivalTime;
+                        - this.activeJob.getArrivalTime();
                 this.numTasks++;
                 int t = this.activeJob.removeNextTask();
                 MachineShopSimulator.eList.setFinishTime(theMachine, MachineShopSimulator.timeNow + t);
