@@ -8,10 +8,13 @@ public class Machine {
     private int changeTime; // machine change-over time
     private int totalWait; // total delay at this machine
     private int numTasks; // number of tasks processed on this machine
+    private int id;
     private Job activeJob; // job currently active on this machine
 
+
     // constructor
-    public Machine() {
+    public Machine(int id) {
+    	this.id = id;
         jobQ = new LinkedQueue();
     }
     
@@ -20,7 +23,7 @@ public class Machine {
      * 
      * @return last job run on this machine
      */
-    public Job changeState(int theMachine) {// Task on theMachine has finished,
+    public Job changeState() {// Task on theMachine has finished,
                                             // schedule next one.
         Job lastJob;
 		if (this.activeJob == null) {// in idle or change-over
@@ -28,7 +31,7 @@ public class Machine {
             lastJob = null;
             // wait over, ready for new job
             if (this.jobQ.isEmpty()) // no waiting job
-            	MachineShopSimulator.eList.setFinishTime(theMachine, MachineShopSimulator.largeTime);
+            	MachineShopSimulator.eList.setFinishTime(id, MachineShopSimulator.largeTime);
             else {// take job off the queue and work on it
                 this.activeJob = (Job) this.jobQ
                         .remove();
@@ -36,13 +39,13 @@ public class Machine {
                         - this.activeJob.getArrivalTime();
                 this.numTasks++;
                 int t = this.activeJob.removeNextTask();
-                MachineShopSimulator.eList.setFinishTime(theMachine, MachineShopSimulator.timeNow + t);
+                MachineShopSimulator.eList.setFinishTime(id, MachineShopSimulator.timeNow + t);
             }
         } else {// task has just finished on machine[theMachine]
                 // schedule change-over time
             lastJob = this.activeJob;
             this.activeJob = null;
-            MachineShopSimulator.eList.setFinishTime(theMachine, MachineShopSimulator.timeNow
+            MachineShopSimulator.eList.setFinishTime(id, MachineShopSimulator.timeNow
                     + this.changeTime);
         }
 

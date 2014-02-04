@@ -21,16 +21,6 @@ public class MachineShopSimulator {
     static Machine[] machine; // array of machines
     static int largeTime; // all machines finish before this
 
-    /**
-     * change the state of theMachine
-     * 
-     * @return last job run on this machine
-     */
-    static Job changeState(int theMachine) {
-        Machine currentMachine = machine[theMachine];
-        return currentMachine.changeState(theMachine);
-    }
-
     /** input machine shop data */
     static void inputData() {
         // define the input stream to be the standard input stream
@@ -81,7 +71,7 @@ public class MachineShopSimulator {
 	private static void createMachineQueue(MyInputStream keyboard) {
 		machine = new Machine[numMachines];
         for (int i = 0; i < numMachines; i++)
-            machine[i] = new Machine();
+            machine[i] = new Machine(i);
 
         // input the change-over times
         System.out.println("Enter change-over times for machines");
@@ -96,7 +86,7 @@ public class MachineShopSimulator {
     /** load first jobs onto each machine */
     static void startShop() {
         for (int p = 0; p < numMachines; p++)
-            changeState(p);
+        	machine[p].changeState();
     }
 
     /** process all jobs to completion */
@@ -105,7 +95,7 @@ public class MachineShopSimulator {
             int nextToFinish = eList.nextEventMachine();
             timeNow = eList.nextEventTime(nextToFinish);
             // change job on machine nextToFinish
-            Job theJob = changeState(nextToFinish);
+            Job theJob = machine[nextToFinish].changeState();
             // move theJob to its next machine
             // decrement numJobs if theJob has finished
             if (theJob != null && !theJob.moveToNextMachine())

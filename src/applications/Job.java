@@ -48,7 +48,7 @@ class Job {
 	        arrivalTime = MachineShopSimulator.timeNow;
 	        // if p idle, schedule immediately
 	        if (MachineShopSimulator.eList.nextEventTime(p) == MachineShopSimulator.largeTime) {// machine is idle
-	            MachineShopSimulator.changeState(p);
+	            MachineShopSimulator.machine[p].changeState();
 	        }
 	        return true;
 	    }
